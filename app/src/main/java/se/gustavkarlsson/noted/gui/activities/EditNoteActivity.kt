@@ -7,20 +7,26 @@ import kotlinx.android.synthetic.main.activity_note.*
 import org.jetbrains.anko.coroutines.experimental.bg
 import se.gustavkarlsson.noted.NotedApplication
 import se.gustavkarlsson.noted.R
-import se.gustavkarlsson.noted.services.database.NoteDao
+import se.gustavkarlsson.noted.actions.FindNoteById
+import se.gustavkarlsson.noted.actions.SaveNote
 import se.gustavkarlsson.noted.entities.Note
 import javax.inject.Inject
 
 class EditNoteActivity : AppCompatActivity() {
 
     @Inject
-    lateinit var noteDao: NoteDao
+    lateinit var findNoteById: FindNoteById
+
+    @Inject
+    lateinit var saveNote: SaveNote
 
     private var noteId: Long? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        NotedApplication.applicationComponent.getEditNoteActivityComponent().inject(this)
+        NotedApplication.applicationComponent
+            .getEditNoteActivityComponent()
+            .inject(this)
         setContentView(R.layout.activity_note)
 
         if (intent.hasExtra(NOTE_ID_EXTRA)) {
@@ -32,7 +38,7 @@ class EditNoteActivity : AppCompatActivity() {
 
         if (noteId != null) {
             bg {
-                val note = noteDao.findById(noteId!!)
+                val note = findNoteById(noteId!!)
                 if (note != null) {
                     titleView.setText(note.title, TextView.BufferType.EDITABLE)
                     contentView.setText(note.content, TextView.BufferType.EDITABLE)
@@ -42,13 +48,12 @@ class EditNoteActivity : AppCompatActivity() {
 
         saveButton.setOnClickListener {
             bg {
-                if (noteId == null) {
-                    val note = Note(0, titleView.text.toString(), contentView.text.toString())
-                    noteDao.insert(note)
+                val note = if (noteId == null) {
+                    Note(0, titleView.text.toString(), contentView.text.toString())
                 } else {
-                    val note = Note(noteId!!, titleView.text.toString(), contentView.text.toString())
-                    noteDao.update(note)
+                    Note(noteId!!, titleView.text.toString(), contentView.text.toString())
                 }
+                saveNote(note)
                 finish()
             }
         }

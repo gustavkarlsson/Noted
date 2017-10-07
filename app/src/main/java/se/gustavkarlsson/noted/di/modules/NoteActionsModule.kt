@@ -4,14 +4,8 @@ import android.app.Activity
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
-import se.gustavkarlsson.noted.actions.CreateNote
-import se.gustavkarlsson.noted.actions.DeleteNote
-import se.gustavkarlsson.noted.actions.EditNote
-import se.gustavkarlsson.noted.actions.ListNotes
-import se.gustavkarlsson.noted.actions_impl.CreateNoteInActivity
-import se.gustavkarlsson.noted.actions_impl.DeleteNoteUsingDao
-import se.gustavkarlsson.noted.actions_impl.EditNoteInActivity
-import se.gustavkarlsson.noted.actions_impl.ListNotesUsingDao
+import se.gustavkarlsson.noted.actions.*
+import se.gustavkarlsson.noted.actions_impl.*
 import se.gustavkarlsson.noted.services.database.NoteDao
 
 @Module
@@ -32,4 +26,12 @@ class NoteActionsModule {
     @Provides
     @Reusable
     fun provideDeleteNote(noteDao: NoteDao): DeleteNote = DeleteNoteUsingDao(noteDao)
+
+    @Provides
+    @Reusable
+    fun provideFindNoteById(noteDao: NoteDao): FindNoteById = FindNoteByIdUsingDao(noteDao)
+
+    @Provides
+    @Reusable
+    fun provideSaveNote(noteDao: NoteDao): SaveNote = SaveNoteUsingDao(noteDao)
 }

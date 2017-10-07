@@ -2,23 +2,22 @@ package se.gustavkarlsson.noted.services.database
 
 import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.*
-import se.gustavkarlsson.noted.entities.Note
 
 
 @Dao
 interface NoteDao {
     @Insert(onConflict = OnConflictStrategy.FAIL)
-    fun insert(note: Note)
+    fun insert(note: DbNote)
 
     @Update
-    fun update(note: Note)
+    fun update(note: DbNote)
 
     @Delete
-    fun delete(note: Note)
+    fun delete(note: DbNote)
 
     @Query("SELECT * FROM Note")
-    fun listAll(): LiveData<List<Note>>
+    fun listAll(): LiveData<List<DbNote>>
 
     @Query("SELECT * FROM Note where id = :id")
-    fun findById(id: Long): Note?
+    fun findById(id: Long): DbNote?
 }

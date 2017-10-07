@@ -2,9 +2,8 @@ package se.gustavkarlsson.noted.services.database
 
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.RoomDatabase
-import se.gustavkarlsson.noted.entities.Note
 
-@Database(entities = arrayOf(Note::class), version = 1)
+@Database(entities = arrayOf(DbNote::class), version = 2)
 abstract class NotedDatabase : RoomDatabase() {
     abstract fun getNoteDao(): NoteDao
 }
