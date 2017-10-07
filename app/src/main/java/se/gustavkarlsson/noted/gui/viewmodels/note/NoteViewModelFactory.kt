@@ -17,8 +17,12 @@ constructor(
 ) : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        require(modelClass == NoteViewModel::class.java) { "Unsupported ViewModel class: $modelClass expected: ${NoteViewModel::class}" }
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        require(modelClass == CLASS) { "Unsupported ViewModel class: $modelClass, expected: $CLASS" }
         return NoteViewModel(syncNote, MutableNote(note)) as T
+    }
+
+    companion object {
+        val CLASS = NoteViewModel::class.java
     }
 }

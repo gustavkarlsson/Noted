@@ -18,6 +18,11 @@ import javax.inject.Inject
 
 class NotesActivity : AppCompatActivity() {
 
+    private val component by lazy {
+        NotedApplication.component
+            .getNotesActivityComponent(ActivityModule(this))
+    }
+
     @Inject
     lateinit var notesModel: NotesViewModel
 
@@ -26,10 +31,8 @@ class NotesActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        NotedApplication.applicationComponent
-            .getNotesActivityComponent(ActivityModule(this))
-            .inject(this)
         setContentView(R.layout.activity_notes)
+        component.inject(this)
         setupNotesView()
         bindData()
     }

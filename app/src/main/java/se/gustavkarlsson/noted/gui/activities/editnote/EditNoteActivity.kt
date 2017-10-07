@@ -2,7 +2,6 @@ package se.gustavkarlsson.noted.gui.activities.editnote
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.text.SpannableStringBuilder
 import android.widget.EditText
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_note.*
@@ -15,15 +14,18 @@ import javax.inject.Inject
 
 class EditNoteActivity : AppCompatActivity() {
 
+    private val component by lazy {
+        NotedApplication.component
+            .getEditNoteActivityComponent(ActivityModule(this))
+    }
+
     @Inject
     lateinit var noteModel: NoteViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        NotedApplication.applicationComponent
-            .getEditNoteActivityComponent(ActivityModule(this))
-            .inject(this)
         setContentView(R.layout.activity_note)
+        component.inject(this)
         bindData()
     }
 

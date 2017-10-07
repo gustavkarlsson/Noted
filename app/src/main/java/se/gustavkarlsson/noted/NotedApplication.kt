@@ -10,13 +10,13 @@ class NotedApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        applicationComponent = DaggerApplicationComponent.builder()
-                .contextModule(ContextModule(this))
-                .databaseModule(DatabaseModule())
-                .build()
+        component = DaggerApplicationComponent.builder()
+            .contextModule(ContextModule(this))
+            .databaseModule(DatabaseModule())
+            .build()
     }
 
     companion object {
-        lateinit var applicationComponent: ApplicationComponent
+        lateinit var component: ApplicationComponent
     }
 }

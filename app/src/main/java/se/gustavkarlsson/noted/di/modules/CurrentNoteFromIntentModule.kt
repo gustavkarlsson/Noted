@@ -17,8 +17,8 @@ class CurrentNoteFromIntentModule {
     fun provideCurrentNote(activity: Activity, findNoteById: FindNoteById): Note {
         val noteId = activity.intent.getLongExtra(EditNoteActivity.NOTE_ID_EXTRA, 0)
         if (noteId == 0L) {
-            return ImmutableNote()
+            return ImmutableNote.EMPTY
         }
-        return findNoteById(noteId) ?: ImmutableNote()
+        return findNoteById(noteId) ?: ImmutableNote.EMPTY
     }
 }
