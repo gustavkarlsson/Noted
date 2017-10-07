@@ -5,7 +5,5 @@ import se.gustavkarlsson.noted.services.database.NoteDao
 import se.gustavkarlsson.noted.services.database.entities.Note
 
 class DeleteNoteUsingDao(private val noteDao: NoteDao) : DeleteNote {
-    override fun invoke(note: Note) {
-        noteDao.delete(note)
-    }
+    override fun invoke(note: Note) = noteDao.delete(note)
 }

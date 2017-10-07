@@ -9,7 +9,7 @@ import se.gustavkarlsson.noted.services.database.entities.Note
 class EditNoteInActivity(private val sourceActivity: Activity) : EditNote {
     override fun invoke(note: Note) {
         val editNoteIntent = Intent(sourceActivity, EditNoteActivity::class.java)
-        editNoteIntent.putExtra("noteId", note.id)
+        editNoteIntent.putExtra(EditNoteActivity.NOTE_ID_EXTRA, note.id)
         sourceActivity.startActivity(editNoteIntent)
     }
 }

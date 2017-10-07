@@ -23,8 +23,8 @@ class EditNoteActivity : AppCompatActivity() {
         NotedApplication.applicationComponent.getEditNoteActivityComponent().inject(this)
         setContentView(R.layout.activity_note)
 
-        if (intent.hasExtra("noteId")) {
-            noteId = intent.getLongExtra("noteId", -1)
+        if (intent.hasExtra(NOTE_ID_EXTRA)) {
+            noteId = intent.getLongExtra(NOTE_ID_EXTRA, -1)
             if (noteId == -1L) {
                 noteId = null
             }
@@ -52,5 +52,9 @@ class EditNoteActivity : AppCompatActivity() {
                 finish()
             }
         }
+    }
+
+    companion object {
+        const val NOTE_ID_EXTRA = "noteId"
     }
 }
