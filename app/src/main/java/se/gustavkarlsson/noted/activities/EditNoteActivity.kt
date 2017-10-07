@@ -16,16 +16,16 @@ class EditNoteActivity : AppCompatActivity() {
     @Inject
     lateinit var noteDao: NoteDao
 
-    var noteId: Int? = null
+    private var noteId: Long? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        NotedApplication.applicationComponent.editNoteActivityComponent.inject(this)
+        NotedApplication.applicationComponent.getEditNoteActivityComponent().inject(this)
         setContentView(R.layout.activity_note)
 
         if (intent.hasExtra("noteId")) {
-            noteId = intent.getIntExtra("noteId", -1)
-            if (noteId == -1) {
+            noteId = intent.getLongExtra("noteId", -1)
+            if (noteId == -1L) {
                 noteId = null
             }
         }

@@ -20,5 +20,5 @@ interface NoteDao {
     fun listAll(): LiveData<List<Note>>
 
     @Query("SELECT * FROM Note where id = :id")
-    fun findById(id: Int): Note?
+    fun findById(id: Long): Note?
 }
