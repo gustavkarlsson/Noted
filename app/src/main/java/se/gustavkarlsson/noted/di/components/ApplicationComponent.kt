@@ -13,5 +13,5 @@ import javax.inject.Singleton
 ))
 interface ApplicationComponent {
     fun getNotesActivityComponent(activityModule: ActivityModule): NotesActivityComponent
-    fun getEditNoteActivityComponent(): EditNoteActivityComponent
+    fun getEditNoteActivityComponent(activityModule: ActivityModule): EditNoteActivityComponent
 }
