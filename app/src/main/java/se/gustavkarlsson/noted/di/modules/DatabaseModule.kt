@@ -15,7 +15,9 @@ class DatabaseModule {
     @Provides
     @Singleton
     fun provideDatabase(context: Context): NotedDatabase =
-            Room.databaseBuilder(context, NotedDatabase::class.java, "noted").build()
+            Room.databaseBuilder(context, NotedDatabase::class.java, "noted")
+                .allowMainThreadQueries()
+                .build()
 
     @Provides
     @Reusable
