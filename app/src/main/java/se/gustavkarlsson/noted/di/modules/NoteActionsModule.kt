@@ -17,11 +17,11 @@ class NoteActionsModule {
 
     @Provides
     @Reusable
-    fun provideCreateNote(activity: Activity): CreateNote = CreateNoteInActivity(activity)
+    fun provideCreateNote(activity: Activity): OpenNewNote = OpenNewNoteInActivity(activity)
 
     @Provides
     @Reusable
-    fun provideEditNote(activity: Activity): EditNote = EditNoteInActivity(activity)
+    fun provideEditNote(activity: Activity): OpenNote = OpenNoteInActivity(activity)
 
     @Provides
     @Reusable
@@ -33,5 +33,5 @@ class NoteActionsModule {
 
     @Provides
     @Reusable
-    fun provideSaveNote(noteDao: NoteDao): SaveNote = SaveNoteUsingDao(noteDao)
+    fun provideSaveNote(noteDao: NoteDao): SyncNote = SyncNoteUsingDao(noteDao)
 }

@@ -1,4 +1,4 @@
-package se.gustavkarlsson.noted.gui.activities
+package se.gustavkarlsson.noted.gui.activities.notes
 
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper

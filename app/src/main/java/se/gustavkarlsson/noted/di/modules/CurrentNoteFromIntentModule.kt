@@ -5,8 +5,9 @@ import dagger.Module
 import dagger.Provides
 import se.gustavkarlsson.noted.actions.FindNoteById
 import se.gustavkarlsson.noted.di.scopes.PerNote
+import se.gustavkarlsson.noted.entities.ImmutableNote
 import se.gustavkarlsson.noted.entities.Note
-import se.gustavkarlsson.noted.gui.activities.EditNoteActivity
+import se.gustavkarlsson.noted.gui.activities.editnote.EditNoteActivity
 
 @Module
 class CurrentNoteFromIntentModule {
@@ -16,8 +17,8 @@ class CurrentNoteFromIntentModule {
     fun provideCurrentNote(activity: Activity, findNoteById: FindNoteById): Note {
         val noteId = activity.intent.getLongExtra(EditNoteActivity.NOTE_ID_EXTRA, 0)
         if (noteId == 0L) {
-            return Note()
+            return ImmutableNote()
         }
-        return findNoteById(noteId) ?: Note()
+        return findNoteById(noteId) ?: ImmutableNote()
     }
 }

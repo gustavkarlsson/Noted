@@ -7,7 +7,7 @@ import se.gustavkarlsson.noted.di.modules.NoteActionsModule
 import se.gustavkarlsson.noted.di.modules.NoteViewModelModule
 import se.gustavkarlsson.noted.di.scopes.PerActivity
 import se.gustavkarlsson.noted.di.scopes.PerNote
-import se.gustavkarlsson.noted.gui.activities.EditNoteActivity
+import se.gustavkarlsson.noted.gui.activities.editnote.EditNoteActivity
 
 @Subcomponent(modules = arrayOf(
     ActivityModule::class,

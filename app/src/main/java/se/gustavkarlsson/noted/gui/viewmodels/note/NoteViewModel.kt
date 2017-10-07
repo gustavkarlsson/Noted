@@ -1,14 +1,14 @@
 package se.gustavkarlsson.noted.gui.viewmodels.note
 
 import android.arch.lifecycle.ViewModel
-import se.gustavkarlsson.noted.actions.SaveNote
-import se.gustavkarlsson.noted.entities.Note
+import se.gustavkarlsson.noted.actions.SyncNote
+import se.gustavkarlsson.noted.entities.MutableNote
 
 class NoteViewModel(
-    private val save: SaveNote,
-    var note: Note
+    private val sync: SyncNote,
+    var note: MutableNote
 ) : ViewModel() {
     fun save() {
-        save(note)
+        sync(note)
     }
 }

@@ -5,13 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".gui.activities.EditNoteActivity">
+    tools:context=".gui.activities.editnote.EditNoteActivity">
 
     <android.widget.EditText
         android:id="@+id/titleView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_margin="16dp"
         android:hint="@string/note_title_hint"
         android:inputType="text"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -22,10 +22,10 @@
         android:id="@+id/contentView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="8dp"
+        android:layout_margin="16dp"
         android:gravity="top"
         android:hint="@string/note_content_hint"
-        android:inputType="textMultiLine"
+        android:inputType="text|textMultiLine"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

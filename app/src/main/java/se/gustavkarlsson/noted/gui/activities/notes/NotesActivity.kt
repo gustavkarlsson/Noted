@@ -1,9 +1,11 @@
-package se.gustavkarlsson.noted.gui.activities
+package se.gustavkarlsson.noted.gui.activities.notes
 
 import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.OrientationHelper
 import kotlinx.android.synthetic.main.activity_notes.*
 import org.jetbrains.anko.coroutines.experimental.bg
 import se.gustavkarlsson.noted.NotedApplication
@@ -29,6 +31,7 @@ class NotesActivity : AppCompatActivity() {
         val adapter = NoteListAdapter(notesView)
         notesView.adapter = adapter
         notesView.layoutManager = LinearLayoutManager(this)
+        notesView.addItemDecoration(DividerItemDecoration(this, OrientationHelper.VERTICAL))
 
         bindData(adapter)
     }
@@ -37,8 +40,8 @@ class NotesActivity : AppCompatActivity() {
         notesModel.notes.observe(this, Observer<List<Note>> {
             adapter.data = it ?: emptyList()
         })
-        adapter.onClickListener = { notesModel.edit(it) }
+        adapter.onClickListener = { notesModel.open(it) }
         adapter.onSwipeListener = { bg { notesModel.delete(it) } }
-        addButton.setOnClickListener { notesModel.create() }
+        addButton.setOnClickListener { notesModel.openNew() }
     }
 }

@@ -1,3 +1,3 @@
 package se.gustavkarlsson.noted.actions
 
-interface CreateNote : () -> Unit
+interface OpenNewNote : () -> Unit
