@@ -2,16 +2,17 @@ package se.gustavkarlsson.noted.gui.activities.notes
 
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import se.gustavkarlsson.noted.entities.Note
+import javax.inject.Inject
 
-class NoteListAdapter(private val recyclerView: RecyclerView) : RecyclerView.Adapter<NoteListAdapter.ViewHolder>() {
-    init {
-        ItemTouchHelper(TouchCallback()).attachToRecyclerView(recyclerView)
-    }
+class NoteListAdapter
+@Inject
+constructor() : RecyclerView.Adapter<NoteListAdapter.ViewHolder>() {
     private var actualData: List<Note> = emptyList()
     var data: List<Note>
         get() = actualData
@@ -19,48 +20,61 @@ class NoteListAdapter(private val recyclerView: RecyclerView) : RecyclerView.Ada
             actualData = value
             notifyDataSetChanged()
         }
-    var onClickListener: ((Note) -> Unit)? = null
-    var onSwipeListener: ((Note) -> Unit)? = null
+    var onClick: ((Note) -> Unit)? = null
+    var onSwipe: ((Note) -> Unit)? = null
 
-    private val viewOnClickListener = View.OnClickListener {
-        val position = recyclerView.getChildAdapterPosition(it)
-        if (position != RecyclerView.NO_POSITION) {
-            val note = data[position]
-            onClickListener?.invoke(note)
-        }
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+        ItemTouchHelper(SwipeCallback()).attachToRecyclerView(recyclerView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(android.R.layout.simple_list_item_1, parent, false) as TextView
-        view.setOnClickListener(viewOnClickListener)
+        view.ellipsize = TextUtils.TruncateAt.END
+        view.maxLines = 1
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val string = data[position].title
-        (holder.itemView as TextView).text = string
+        holder.bind(data[position], onClick)
     }
 
     override fun getItemCount() = data.size
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        fun bind(note: Note, onClick: ((Note) -> Unit)?) {
+            val textView = itemView as TextView
+            textView.text = note.presentationText
+            if (onClick != null) {
+                itemView.setOnClickListener { onClick(note) }
+            }
+        }
+    }
 
-    inner class TouchCallback : ItemTouchHelper.Callback() {
-        override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int =
-                makeFlag(ItemTouchHelper.ACTION_STATE_SWIPE, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT)
+    inner class SwipeCallback : ItemTouchHelper.Callback() {
+        override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) =
+            makeFlag(ItemTouchHelper.ACTION_STATE_SWIPE, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT)
 
-        override fun onMove(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean = false
+        override fun onMove(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder) = false
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-            val position = recyclerView.getChildAdapterPosition(viewHolder.itemView)
-            if (position != RecyclerView.NO_POSITION) {
-                val note = data[position]
-                onSwipeListener?.invoke(note)
+            if (onSwipe != null) {
+                val position = viewHolder.adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val note = data[position]
+                    onSwipe?.invoke(note)
+                }
             }
         }
 
-        override fun isLongPressDragEnabled(): Boolean = false
-
+        override fun isLongPressDragEnabled() = false
     }
+
+    private val Note.presentationText: String
+        get() {
+            if (title.isNotBlank()) {
+                return title
+            }
+            return content
+        }
 }

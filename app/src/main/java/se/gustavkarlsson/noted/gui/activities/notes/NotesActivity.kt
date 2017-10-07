@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.OrientationHelper
+import android.support.v7.widget.OrientationHelper.VERTICAL
 import kotlinx.android.synthetic.main.activity_notes.*
 import org.jetbrains.anko.coroutines.experimental.bg
 import se.gustavkarlsson.noted.NotedApplication
@@ -21,27 +21,31 @@ class NotesActivity : AppCompatActivity() {
     @Inject
     lateinit var notesModel: NotesViewModel
 
+    @Inject
+    lateinit var noteListAdapter: NoteListAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         NotedApplication.applicationComponent
             .getNotesActivityComponent(ActivityModule(this))
             .inject(this)
         setContentView(R.layout.activity_notes)
-
-        val adapter = NoteListAdapter(notesView)
-        notesView.adapter = adapter
-        notesView.layoutManager = LinearLayoutManager(this)
-        notesView.addItemDecoration(DividerItemDecoration(this, OrientationHelper.VERTICAL))
-
-        bindData(adapter)
+        setupNotesView()
+        bindData()
     }
 
-    private fun bindData(adapter: NoteListAdapter) {
+    private fun setupNotesView() {
+        notesView.adapter = noteListAdapter
+        notesView.layoutManager = LinearLayoutManager(this)
+        notesView.addItemDecoration(DividerItemDecoration(this, VERTICAL))
+    }
+
+    private fun bindData() {
         notesModel.notes.observe(this, Observer<List<Note>> {
-            adapter.data = it ?: emptyList()
+            noteListAdapter.data = it ?: emptyList()
         })
-        adapter.onClickListener = { notesModel.open(it) }
-        adapter.onSwipeListener = { bg { notesModel.delete(it) } }
+        noteListAdapter.onClick = { notesModel.open(it) }
+        noteListAdapter.onSwipe = { bg { notesModel.delete(it) } }
         addButton.setOnClickListener { notesModel.openNew() }
     }
 }
