@@ -1,4 +1,4 @@
-package se.gustavkarlsson.noted.activities
+package se.gustavkarlsson.noted.gui.activities
 
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import se.gustavkarlsson.noted.services.database.entities.Note
+import se.gustavkarlsson.noted.entities.Note
 
 class NoteListAdapter(private val recyclerView: RecyclerView) : RecyclerView.Adapter<NoteListAdapter.ViewHolder>() {
     init {

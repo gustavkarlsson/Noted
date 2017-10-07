@@ -1,4 +1,4 @@
-package se.gustavkarlsson.noted.activities
+package se.gustavkarlsson.noted.gui.activities
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -8,7 +8,7 @@ import org.jetbrains.anko.coroutines.experimental.bg
 import se.gustavkarlsson.noted.NotedApplication
 import se.gustavkarlsson.noted.R
 import se.gustavkarlsson.noted.services.database.NoteDao
-import se.gustavkarlsson.noted.services.database.entities.Note
+import se.gustavkarlsson.noted.entities.Note
 import javax.inject.Inject
 
 class EditNoteActivity : AppCompatActivity() {

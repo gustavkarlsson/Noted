@@ -2,7 +2,7 @@ package se.gustavkarlsson.noted.services.database
 
 import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.*
-import se.gustavkarlsson.noted.services.database.entities.Note
+import se.gustavkarlsson.noted.entities.Note
 
 
 @Dao

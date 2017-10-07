@@ -1,4 +1,4 @@
-package se.gustavkarlsson.noted.activities
+package se.gustavkarlsson.noted.gui.viewmodels.notes
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider

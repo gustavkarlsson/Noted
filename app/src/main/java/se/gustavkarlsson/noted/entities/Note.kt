@@ -1,4 +1,4 @@
-package se.gustavkarlsson.noted.services.database.entities
+package se.gustavkarlsson.noted.entities
 
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity

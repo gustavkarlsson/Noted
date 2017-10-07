@@ -1,11 +1,11 @@
-package se.gustavkarlsson.noted.activities
+package se.gustavkarlsson.noted.gui.viewmodels.notes
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
 import se.gustavkarlsson.noted.actions.CreateNote
 import se.gustavkarlsson.noted.actions.DeleteNote
 import se.gustavkarlsson.noted.actions.EditNote
-import se.gustavkarlsson.noted.services.database.entities.Note
+import se.gustavkarlsson.noted.entities.Note
 
 class NotesViewModel(
     val notes: LiveData<List<Note>>,

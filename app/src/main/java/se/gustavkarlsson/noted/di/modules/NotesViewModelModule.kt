@@ -9,8 +9,8 @@ import se.gustavkarlsson.noted.actions.CreateNote
 import se.gustavkarlsson.noted.actions.DeleteNote
 import se.gustavkarlsson.noted.actions.EditNote
 import se.gustavkarlsson.noted.actions.ListNotes
-import se.gustavkarlsson.noted.activities.NotesViewModel
-import se.gustavkarlsson.noted.activities.NotesViewModelFactory
+import se.gustavkarlsson.noted.gui.viewmodels.notes.NotesViewModel
+import se.gustavkarlsson.noted.gui.viewmodels.notes.NotesViewModelFactory
 
 
 @Module

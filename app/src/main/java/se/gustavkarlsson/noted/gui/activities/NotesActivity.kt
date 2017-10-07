@@ -1,4 +1,4 @@
-package se.gustavkarlsson.noted.activities
+package se.gustavkarlsson.noted.gui.activities
 
 import android.arch.lifecycle.Observer
 import android.os.Bundle
@@ -8,7 +8,8 @@ import kotlinx.android.synthetic.main.activity_notes.*
 import se.gustavkarlsson.noted.NotedApplication
 import se.gustavkarlsson.noted.R
 import se.gustavkarlsson.noted.di.modules.ActivityModule
-import se.gustavkarlsson.noted.services.database.entities.Note
+import se.gustavkarlsson.noted.gui.viewmodels.notes.NotesViewModel
+import se.gustavkarlsson.noted.entities.Note
 import javax.inject.Inject
 
 
