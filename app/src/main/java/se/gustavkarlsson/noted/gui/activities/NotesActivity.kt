@@ -27,12 +27,16 @@ class NotesActivity : AppCompatActivity() {
         setContentView(R.layout.activity_notes)
 
         val adapter = NoteListAdapter(notesView)
+        notesView.adapter = adapter
         notesView.layoutManager = LinearLayoutManager(this)
+
+        bindData(adapter)
+    }
+
+    private fun bindData(adapter: NoteListAdapter) {
         notesModel.notes.observe(this, Observer<List<Note>> {
             adapter.data = it ?: emptyList()
         })
-        notesView.adapter = adapter
-
         adapter.onClickListener = { notesModel.edit(it) }
         adapter.onSwipeListener = { bg { notesModel.delete(it) } }
         addButton.setOnClickListener { notesModel.create() }
