@@ -35,13 +35,13 @@ class EditNoteActivity : AppCompatActivity() {
         titleView.addTextChangedListener(UpdateNoteTextWatcher(noteModel, { note, newText -> note.copy(title = newText) }))
 
         contentView.addTextChangedListener(UpdateNoteTextWatcher(noteModel, { note, newText -> note.copy(content = newText) }))
+    }
 
-        saveButton.setOnClickListener {
-            bg {
-                noteModel.save()
-                finish()
-            }
+    override fun onBackPressed() {
+        bg {
+            noteModel.save()
         }
+        super.onBackPressed()
     }
 
     private class UpdateNoteTextWatcher(private val noteModel: NoteViewModel, private val update: (Note, String) -> Note) : TextWatcher {

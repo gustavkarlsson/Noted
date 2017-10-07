@@ -7,11 +7,20 @@ import se.gustavkarlsson.noted.services.database.NoteDao
 
 class SaveNoteUsingDao(private val noteDao: NoteDao) : SaveNote {
     override fun invoke(note: Note) {
-        val dbNote = convertToDb(note)
-        if (dbNote.id == 0L) {
-            noteDao.insert(dbNote)
-        } else {
-            noteDao.update(dbNote)
+        note.run {
+            if (isNew() && isBlank()) {
+            } else if (isNew() && !isBlank()) {
+                noteDao.insert(convertToDb(note))
+            } else if (!isNew() && isBlank()) {
+                noteDao.delete(convertToDb(note))
+            } else if (!isNew() && !isBlank()) {
+                noteDao.update(convertToDb(note))
+            } else {
+                throw IllegalStateException("Don't know what to do with note: $this")
+            }
         }
     }
+
+    private fun Note.isNew() = id == null
+    private fun Note.isBlank() = title.isBlank() && content.isBlank()
 }
