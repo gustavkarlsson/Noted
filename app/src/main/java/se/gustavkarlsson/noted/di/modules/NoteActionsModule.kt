@@ -7,6 +7,7 @@ import dagger.Reusable
 import se.gustavkarlsson.noted.actions.*
 import se.gustavkarlsson.noted.actions_impl.*
 import se.gustavkarlsson.noted.services.database.NoteDao
+import se.gustavkarlsson.noted.services_impl.AndroidActivityStarter
 
 @Module
 class NoteActionsModule {
@@ -17,11 +18,11 @@ class NoteActionsModule {
 
     @Provides
     @Reusable
-    fun provideCreateNote(activity: Activity): OpenNewNote = OpenNewNoteInActivity(activity)
+    fun provideCreateNote(activity: Activity): EditNewNote = EditNewNoteInNewActivity(AndroidActivityStarter(activity)) // TODO Move AndroidActivityStarter to own module
 
     @Provides
     @Reusable
-    fun provideEditNote(activity: Activity): OpenNote = OpenNoteInActivity(activity)
+    fun provideEditNote(activity: Activity): EditExistingNote = EditExistingNoteInNewActivity(AndroidActivityStarter(activity)) // TODO Move AndroidActivityStarter to own module
 
     @Provides
     @Reusable

@@ -47,8 +47,8 @@ class NotesActivity : AppCompatActivity() {
         notesModel.notes.observe(this, Observer<List<Note>> {
             noteListAdapter.data = it ?: emptyList()
         })
-        noteListAdapter.onClick = { notesModel.open(it) }
+        noteListAdapter.onClick = { notesModel.editExisting(it) }
         noteListAdapter.onSwipe = { bg { notesModel.delete(it) } }
-        addButton.setOnClickListener { notesModel.openNew() }
+        addButton.setOnClickListener { notesModel.editNew() }
     }
 }

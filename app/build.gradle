@@ -24,6 +24,9 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 kotlin {
@@ -40,23 +43,34 @@ gradle.projectsEvaluated {
 }
 
 dependencies {
-    androidTestImplementation("com.android.support.test.espresso:espresso-core:2.2.2", {
-        exclude group: "com.android.support", module: "support-annotations"
-    })
+    // Official Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.anko:anko-coroutines:0.10.1"
+
+    // Official Android
     implementation "com.android.support:appcompat-v7:26.1.0"
     implementation "com.android.support.constraint:constraint-layout:1.0.2"
     implementation "com.android.support:design:26.1.0"
     implementation "android.arch.lifecycle:runtime:1.0.0"
     implementation "android.arch.lifecycle:extensions:1.0.0-beta1"
     implementation "android.arch.persistence.room:runtime:1.0.0-beta1"
-    implementation "org.jetbrains.anko:anko-coroutines:0.10.1"
-    testImplementation "junit:junit:4.12"
 
-
+    // Dagger
     implementation "com.google.dagger:dagger:2.11"
-    kapt "com.google.dagger:dagger-compiler:2.11"
     compileOnly "javax.annotation:jsr250-api:1.0"
+
+    // Annotation procesors
+    kapt "com.google.dagger:dagger-compiler:2.11"
     kapt "android.arch.lifecycle:compiler:1.0.0-beta1"
     kapt "android.arch.persistence.room:compiler:1.0.0-beta1"
+
+    // Testing
+    testImplementation "junit:junit:4.12"
+    testImplementation "org.assertj:assertj-core:3.8.0"
+    testImplementation "org.mockito:mockito-core:2.10.0"
+    testImplementation "com.nhaarman:mockito-kotlin-kt1.1:1.5.0", { exclude group: "org.jetbrains.kotlin" }
+    testImplementation "android.arch.core:core-testing:1.0.0-beta1"
+    androidTestImplementation("com.android.support.test.espresso:espresso-core:2.2.2", {
+        exclude group: "com.android.support", module: "support-annotations"
+    })
 }
