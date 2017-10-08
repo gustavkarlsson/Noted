@@ -59,25 +59,32 @@ dependencies {
     implementation "com.google.dagger:dagger:2.11"
     compileOnly "javax.annotation:jsr250-api:1.0"
 
-    // Annotation procesors
+    // Annotation processors
     kapt "com.google.dagger:dagger-compiler:2.11"
     kapt "android.arch.lifecycle:compiler:1.0.0-beta1"
     kapt "android.arch.persistence.room:compiler:1.0.0-beta1"
+
 
     // Testing
     testImplementation "junit:junit:4.12"
     testImplementation "org.assertj:assertj-core:3.8.0"
     testImplementation "org.mockito:mockito-core:2.10.0"
-    testImplementation "com.nhaarman:mockito-kotlin-kt1.1:1.5.0", { exclude group: "org.jetbrains.kotlin" }
+    testImplementation "com.nhaarman:mockito-kotlin-kt1.1:1.5.0", {
+        exclude group: "org.jetbrains.kotlin"
+    }
     testImplementation "android.arch.core:core-testing:1.0.0-beta1"
-    androidTestImplementation("com.android.support.test.espresso:espresso-core:2.2.2", {
+
+
+    // Android Testing
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:2.2.2", {
         exclude group: "com.android.support", module: "support-annotations"
-    })
-    androidTestImplementation("com.android.support.test.espresso:espresso-contrib:2.2.2") {
+    }
+    androidTestImplementation "com.android.support.test.espresso:espresso-contrib:2.2.2", {
         exclude group: "com.android.support", module: "appcompat"
         exclude group: "com.android.support", module: "support-v4"
         exclude group: "com.android.support", module: "support-annotations"
         exclude module: "recyclerview-v7"
     }
+
     kaptAndroidTest "com.google.dagger:dagger-compiler:2.11"
 }
