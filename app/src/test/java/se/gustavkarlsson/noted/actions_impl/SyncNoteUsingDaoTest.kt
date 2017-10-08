@@ -14,8 +14,7 @@ import se.gustavkarlsson.noted.services.database.NoteDao
 @RunWith(MockitoJUnitRunner::class)
 class SyncNoteUsingDaoTest {
 
-    @Mock
-    lateinit var mockNoteDao: NoteDao
+    @Mock lateinit var mockNoteDao: NoteDao
 
     lateinit var impl: SyncNoteUsingDao
 

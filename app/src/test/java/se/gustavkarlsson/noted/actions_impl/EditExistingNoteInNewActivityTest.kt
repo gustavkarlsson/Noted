@@ -13,8 +13,7 @@ import se.gustavkarlsson.noted.services.ActivityStarter
 @RunWith(MockitoJUnitRunner::class)
 class EditExistingNoteInNewActivityTest {
 
-    @Mock
-    lateinit var mockActivityStarter: ActivityStarter
+    @Mock lateinit var mockActivityStarter: ActivityStarter
 
     lateinit var impl: EditExistingNoteInNewActivity
 
