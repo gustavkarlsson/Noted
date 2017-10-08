@@ -15,7 +15,7 @@ import javax.inject.Inject
 class EditNoteActivity : AppCompatActivity() {
 
     private val component by lazy {
-        NotedApplication.component
+        NotedApplication.instance.component
             .getEditNoteActivityComponent(ActivityModule(this))
     }
 

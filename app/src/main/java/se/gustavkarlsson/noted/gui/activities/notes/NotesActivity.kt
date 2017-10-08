@@ -19,7 +19,7 @@ import javax.inject.Inject
 class NotesActivity : AppCompatActivity() {
 
     private val component by lazy {
-        NotedApplication.component
+        NotedApplication.instance.component
             .getNotesActivityComponent(ActivityModule(this))
     }
 

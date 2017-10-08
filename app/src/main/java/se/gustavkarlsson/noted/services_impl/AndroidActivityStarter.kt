@@ -9,8 +9,8 @@ import java.io.Serializable
 import kotlin.reflect.KClass
 
 class AndroidActivityStarter(private val sourceActivity: Activity) : ActivityStarter {
-    override fun startActivity(klass: KClass<out Activity>, extras: Map<String, Any>?, options: Bundle?) {
-        val intent = Intent(sourceActivity, klass.java)
+    override fun startActivity(activityClass: KClass<out Activity>, extras: Map<String, Any>?, options: Bundle?) {
+        val intent = Intent(sourceActivity, activityClass.java)
         extras?.entries?.forEach { (name, value) ->
             intent.putAnyExtra(name, value)
         }

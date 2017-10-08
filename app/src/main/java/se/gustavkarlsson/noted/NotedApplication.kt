@@ -8,8 +8,11 @@ import se.gustavkarlsson.noted.di.modules.DatabaseModule
 
 class NotedApplication : Application() {
 
+    lateinit var component: ApplicationComponent
+
     override fun onCreate() {
         super.onCreate()
+        instance = this
         component = DaggerApplicationComponent.builder()
             .contextModule(ContextModule(this))
             .databaseModule(DatabaseModule())
@@ -17,6 +20,6 @@ class NotedApplication : Application() {
     }
 
     companion object {
-        lateinit var component: ApplicationComponent
+        lateinit var instance: NotedApplication
     }
 }
