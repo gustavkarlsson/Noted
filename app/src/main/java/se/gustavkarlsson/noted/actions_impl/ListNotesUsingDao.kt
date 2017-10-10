@@ -9,8 +9,14 @@ import se.gustavkarlsson.noted.services.database.DbNote
 import se.gustavkarlsson.noted.services.database.NoteDao
 
 class ListNotesUsingDao(private val noteDao: NoteDao) : ListNotes {
+
+    private val liveData: LiveData<List<Note>> by lazy {
+        Transformations.map(noteDao.listAll(), this::convertToEntities)
+    }
+
+    @Synchronized
     override fun invoke(): LiveData<List<Note>> {
-        return Transformations.map(noteDao.listAll(), this::convertToEntities)
+        return liveData
     }
 
     private fun convertToEntities(dbNotes: List<DbNote>): List<Note> {
