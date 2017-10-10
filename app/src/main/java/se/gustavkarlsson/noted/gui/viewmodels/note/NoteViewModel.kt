@@ -8,7 +8,7 @@ class NoteViewModel(
     private val sync: SyncNote,
     var note: MutableNote
 ) : ViewModel() {
-    fun save() {
+    fun sync() {
         sync(note)
     }
 }

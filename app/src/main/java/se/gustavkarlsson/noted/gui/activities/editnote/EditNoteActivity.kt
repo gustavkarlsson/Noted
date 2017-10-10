@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.EditText
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_note.*
-import org.jetbrains.anko.coroutines.experimental.bg
 import se.gustavkarlsson.noted.NotedApplication
 import se.gustavkarlsson.noted.R
 import se.gustavkarlsson.noted.di.modules.ActivityModule
@@ -40,9 +39,7 @@ class EditNoteActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        bg {
-            noteModel.save()
-        }
+        noteModel.sync()
         super.onBackPressed()
     }
 

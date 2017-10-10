@@ -7,7 +7,6 @@ import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.OrientationHelper.VERTICAL
 import kotlinx.android.synthetic.main.activity_notes.*
-import org.jetbrains.anko.coroutines.experimental.bg
 import se.gustavkarlsson.noted.NotedApplication
 import se.gustavkarlsson.noted.R
 import se.gustavkarlsson.noted.di.modules.ActivityModule
@@ -48,7 +47,7 @@ class NotesActivity : AppCompatActivity() {
             noteListAdapter.data = it ?: emptyList()
         })
         noteListAdapter.onClick = { notesModel.editExisting(it) }
-        noteListAdapter.onSwipe = { bg { notesModel.delete(it) } }
+        noteListAdapter.onSwipe = { notesModel.delete(it) }
         addButton.setOnClickListener { notesModel.editNew() }
     }
 }
