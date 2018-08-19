@@ -6,8 +6,8 @@ sealed class Command
 
 object StreamNotes : Command()
 
-data class EditNote(val note: Note) : Command()
-
-data class DeleteNote(val note: Note) : Command()
+data class StartEditingNote(val note: Note) : Command()
 
 object StopEditingNote : Command()
+
+data class DeleteNote(val note: Note) : Command()

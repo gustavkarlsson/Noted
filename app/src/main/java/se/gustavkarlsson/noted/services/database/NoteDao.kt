@@ -1,7 +1,7 @@
 package se.gustavkarlsson.noted.services.database
 
-import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.*
+import io.reactivex.Flowable
 
 
 @Dao
@@ -16,8 +16,5 @@ interface NoteDao {
     fun delete(note: DbNote)
 
     @Query("SELECT * FROM Note")
-    fun listAll(): LiveData<List<DbNote>>
-
-    @Query("SELECT * FROM Note where id = :id")
-    fun findById(id: Long): DbNote?
+    fun listAll(): Flowable<List<DbNote>>
 }
