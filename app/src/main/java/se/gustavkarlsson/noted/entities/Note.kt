@@ -1,7 +1,5 @@
 package se.gustavkarlsson.noted.entities
 
-interface Note {
-    val id: Long?
-    val title: String
-    val content: String
+data class Note(val id: Long?, val title: String, val content: String) {
+    constructor(title: String, content: String) : this(null, title, content)
 }

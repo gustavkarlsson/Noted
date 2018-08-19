@@ -8,11 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import se.gustavkarlsson.noted.entities.Note
-import javax.inject.Inject
 
-class NoteListAdapter
-@Inject
-constructor() : RecyclerView.Adapter<NoteListAdapter.ViewHolder>() {
+class NoteListAdapter : RecyclerView.Adapter<NoteListAdapter.ViewHolder>() {
     private var actualData: List<Note> = emptyList()
     var data: List<Note>
         get() = actualData

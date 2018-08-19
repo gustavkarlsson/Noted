@@ -48,12 +48,12 @@ dependencies {
     implementation "android.arch.lifecycle:extensions:1.1.1"
     implementation "android.arch.persistence.room:runtime:1.1.1"
 
-    // Dagger
-    implementation "com.google.dagger:dagger:2.16"
-    compileOnly "javax.annotation:jsr250-api:1.0"
+    // Other
+    implementation "com.github.gustavkarlsson.krate:krate-core:1.0.0"
+    implementation "org.koin:koin-android-viewmodel:1.0.0-beta-6"
+
 
     // Annotation processors
-    kapt "com.google.dagger:dagger-compiler:2.16"
     kapt "android.arch.lifecycle:compiler:1.1.1"
     kapt "android.arch.persistence.room:compiler:1.1.1"
 }
