@@ -8,7 +8,7 @@
     tools:context=".gui.activities.notes.NotesActivity">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/notesView"
+        android:id="@+id/notesRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scrollbars="vertical"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/addButton"
+        android:id="@+id/addFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"

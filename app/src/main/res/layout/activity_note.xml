@@ -8,7 +8,7 @@
     tools:context=".gui.activities.editnote.EditNoteActivity">
 
     <android.widget.EditText
-        android:id="@+id/titleView"
+        android:id="@+id/titleEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <android.widget.EditText
-        android:id="@+id/contentView"
+        android:id="@+id/contentEditText"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="16dp"
@@ -31,5 +31,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titleView"/>
+        app:layout_constraintTop_toBottomOf="@id/titleEditText"/>
 </android.support.constraint.ConstraintLayout>

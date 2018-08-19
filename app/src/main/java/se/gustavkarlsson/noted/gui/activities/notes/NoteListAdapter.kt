@@ -10,11 +10,9 @@ import android.widget.TextView
 import se.gustavkarlsson.noted.entities.Note
 
 class NoteListAdapter : RecyclerView.Adapter<NoteListAdapter.ViewHolder>() {
-    private var actualData: List<Note> = emptyList()
-    var data: List<Note>
-        get() = actualData
+    var notes: List<Note> = emptyList()
         set(value) {
-            actualData = value
+            field = value
             notifyDataSetChanged()
         }
     var onClick: ((Note) -> Unit)? = null
@@ -33,10 +31,10 @@ class NoteListAdapter : RecyclerView.Adapter<NoteListAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(data[position], onClick)
+        holder.bind(notes[position], onClick)
     }
 
-    override fun getItemCount() = data.size
+    override fun getItemCount() = notes.size
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(note: Note, onClick: ((Note) -> Unit)?) {
@@ -58,7 +56,7 @@ class NoteListAdapter : RecyclerView.Adapter<NoteListAdapter.ViewHolder>() {
             if (onSwipe != null) {
                 val position = viewHolder.adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
-                    val note = data[position]
+                    val note = notes[position]
                     onSwipe?.invoke(note)
                 }
             }

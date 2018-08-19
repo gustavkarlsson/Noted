@@ -18,7 +18,7 @@ val appModule = module {
             .getNoteDao()
     }
 
-    viewModel { EditNoteViewModel(get(), get()) }
+    viewModel { EditNoteViewModel(get()) }
 
-    viewModel { NotesViewModel(get(), get()) }
+    viewModel { NotesViewModel(get()) }
 }
