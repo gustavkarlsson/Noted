@@ -8,10 +8,11 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.OrientationHelper.VERTICAL
 import android.support.v7.widget.RecyclerView
 import com.jakewharton.rxbinding2.view.clicks
+import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_notes.*
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.android.ext.android.inject
 import se.gustavkarlsson.noted.R
-import se.gustavkarlsson.noted.extensions.observeNonNull
+import se.gustavkarlsson.noted.extensions.addTo
 import se.gustavkarlsson.noted.gui.activities.editnote.EditNoteActivity
 
 
@@ -19,7 +20,11 @@ class NotesActivity : AppCompatActivity() {
 
     private val activity = this
 
-    private val viewModel: NotesViewModel by viewModel()
+    private var isStarted = false
+
+    private val disposables = CompositeDisposable()
+
+    private val viewModel: NotesViewModel by inject()
 
     private val noteListAdapter = NoteListAdapter()
 
@@ -31,6 +36,16 @@ class NotesActivity : AppCompatActivity() {
         bind()
     }
 
+    override fun onStart() {
+        super.onStart()
+        isStarted = true
+    }
+
+    override fun onStop() {
+        super.onStop()
+        isStarted = false
+    }
+
     private fun RecyclerView.init() {
         adapter = noteListAdapter
         layoutManager = LinearLayoutManager(context)
@@ -38,18 +53,28 @@ class NotesActivity : AppCompatActivity() {
     }
 
     private fun NotesViewModel.bind() {
-        notes.observeNonNull(activity) {
+        notes.subscribe {
             noteListAdapter.notes = it
-        }
-        editNote.observeNonNull(activity) {
-            startActivity(Intent(activity, EditNoteActivity::class.java))
-        }
+        }.addTo(disposables)
+
+        editNote.subscribe {
+            if (isStarted) {
+                startActivity(Intent(activity, EditNoteActivity::class.java))
+            }
+        }.addTo(disposables)
     }
 
     private fun bind() {
         addFab.clicks()
             .subscribe { viewModel.createNewNote() }
+            .addTo(disposables)
+
         noteListAdapter.onClick = viewModel::editNote
         noteListAdapter.onSwipe = viewModel::deleteNote
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        disposables.clear()
     }
 }

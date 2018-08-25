@@ -1,7 +1,6 @@
 package se.gustavkarlsson.noted
 
 import android.arch.persistence.room.Room
-import org.koin.android.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
 import se.gustavkarlsson.noted.gui.activities.editnote.EditNoteViewModel
 import se.gustavkarlsson.noted.gui.activities.notes.NotesViewModel
@@ -18,7 +17,7 @@ val appModule = module {
             .getNoteDao()
     }
 
-    viewModel { EditNoteViewModel(get()) }
+    factory { EditNoteViewModel(get()) }
 
-    viewModel { NotesViewModel(get()) }
+    factory { NotesViewModel(get()) }
 }

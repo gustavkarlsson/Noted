@@ -1,5 +1,6 @@
 package se.gustavkarlsson.noted.krate
 
+import android.util.Log
 import io.reactivex.Flowable
 import io.reactivex.Maybe
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -16,15 +17,9 @@ typealias NoteStore = Store<State, Command, Result>
 
 fun buildStore(dao: NoteDao): NoteStore = buildStore {
 
-    states {
-        initial = State()
-        observeScheduler = AndroidSchedulers.mainThread()
-    }
-
     commands {
         transform<StreamNotes> { commands ->
             commands
-                .distinctUntilChanged()
                 .observeOn(Schedulers.io())
                 .flatMap { dao.listAll() }
                 .map { it.map(DbNote::toEntity) }
@@ -94,6 +89,8 @@ fun buildStore(dao: NoteDao): NoteStore = buildStore {
                 .doOnNext(dao::delete)
                 .flatMap<Result> { Flowable.empty() }
         }
+
+        watchAll { Log.v("NoteStore", it.toString()) }
     }
 
     results {
@@ -104,5 +101,14 @@ fun buildStore(dao: NoteDao): NoteStore = buildStore {
         reduce<SetEditingNote> { state, (note) ->
             state.copy(editingNote = note)
         }
+
+        watchAll { Log.v("NoteStore", it.toString()) }
+    }
+
+    states {
+        initial = State()
+        observeScheduler = AndroidSchedulers.mainThread()
+
+        watchAll { Log.v("NoteStore", it.toString()) }
     }
 }

@@ -3,7 +3,6 @@ package se.gustavkarlsson.noted.services.database
 import android.arch.persistence.room.*
 import io.reactivex.Flowable
 
-
 @Dao
 interface NoteDao {
     @Insert(onConflict = OnConflictStrategy.FAIL)
