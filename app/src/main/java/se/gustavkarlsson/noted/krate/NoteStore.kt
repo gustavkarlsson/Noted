@@ -2,7 +2,6 @@ package se.gustavkarlsson.noted.krate
 
 import android.util.Log
 import io.reactivex.Flowable
-import io.reactivex.Maybe
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import se.gustavkarlsson.krate.core.Store
@@ -32,32 +31,14 @@ fun buildStore(dao: NoteDao): NoteStore = buildStore {
                 .map(::SetEditingNote)
         }
 
-        transformWithState<SetEditingNoteTitle> { commands, getState ->
+        transform<SetEditingNoteTitle> { commands ->
             commands
-                .map(SetEditingNoteTitle::text)
-                .flatMapMaybe { newTitle ->
-                    val editingNote = getState().editingNote
-                    if (editingNote == null) {
-                        Maybe.empty()
-                    } else {
-                        val newNote = editingNote.copy(title = newTitle)
-                        Maybe.just(SetEditingNote(newNote))
-                    }
-                }
+                .map { ChangeEditingNote(title = it.text) }
         }
 
-        transformWithState<SetEditingNoteContent> { commands, getState ->
+        transform<SetEditingNoteContent> { commands ->
             commands
-                .map(SetEditingNoteContent::text)
-                .flatMapMaybe { newContent ->
-                    val editingNote = getState().editingNote
-                    if (editingNote == null) {
-                        Maybe.empty()
-                    } else {
-                        val newNote = editingNote.copy(content = newContent)
-                        Maybe.just(SetEditingNote(newNote))
-                    }
-                }
+                .map { ChangeEditingNote(content = it.text) }
         }
 
         transformWithState<StopEditingNote> { commands, getState ->
@@ -102,13 +83,20 @@ fun buildStore(dao: NoteDao): NoteStore = buildStore {
             state.copy(editingNote = note)
         }
 
-        watchAll { Log.v("NoteStore", "Result:  $it") }
+        reduce<ChangeEditingNote> { state, (newTitle, newContent) ->
+            state.editingNote?.run {
+                val newNote = copy(title = newTitle ?: title, content = newContent ?: content)
+                state.copy(editingNote = newNote)
+            } ?: state
+        }
+
+        watchAll { Log.v("NoteStore", "Result: $it") }
     }
 
     states {
         initial = State()
         observeScheduler = AndroidSchedulers.mainThread()
 
-        watchAll { Log.v("NoteStore", "State:   $it") }
+        watchAll { Log.v("NoteStore", "State: $it") }
     }
 }
