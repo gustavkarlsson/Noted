@@ -1,7 +1,7 @@
 package se.gustavkarlsson.noted.gui.activities.editnote
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.jakewharton.rxbinding2.widget.textChanges
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_note.*

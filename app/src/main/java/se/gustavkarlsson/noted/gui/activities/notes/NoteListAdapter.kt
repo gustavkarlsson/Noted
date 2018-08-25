@@ -1,12 +1,12 @@
 package se.gustavkarlsson.noted.gui.activities.notes
 
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.helper.ItemTouchHelper
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import se.gustavkarlsson.noted.entities.Note
 
 class NoteListAdapter : RecyclerView.Adapter<NoteListAdapter.ViewHolder>() {
@@ -47,10 +47,21 @@ class NoteListAdapter : RecyclerView.Adapter<NoteListAdapter.ViewHolder>() {
     }
 
     inner class SwipeCallback : ItemTouchHelper.Callback() {
-        override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) =
-            makeFlag(ItemTouchHelper.ACTION_STATE_SWIPE, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT)
+        override fun getMovementFlags(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder
+        ): Int {
+            return makeFlag(
+                ItemTouchHelper.ACTION_STATE_SWIPE,
+                ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+            )
+        }
 
-        override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder) = false
+        override fun onMove(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            target: RecyclerView.ViewHolder
+        ) = false
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
             if (onSwipe != null) {

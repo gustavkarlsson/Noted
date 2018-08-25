@@ -1,6 +1,6 @@
 package se.gustavkarlsson.noted
 
-import android.arch.persistence.room.Room
+import androidx.room.Room
 import org.koin.dsl.module.module
 import se.gustavkarlsson.noted.gui.activities.editnote.EditNoteViewModel
 import se.gustavkarlsson.noted.gui.activities.notes.NotesViewModel
