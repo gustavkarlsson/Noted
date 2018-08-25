@@ -18,10 +18,15 @@ class EditNoteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_note)
-        titleEditText.setText(viewModel.initialTitle)
-        contentEditText.setText(viewModel.initialContent)
+        init()
         viewModel.bind()
         bind()
+    }
+
+    private fun init() {
+        titleEditText.setText(viewModel.initialTitle)
+        titleEditText.setSelection(titleEditText.text.length)
+        contentEditText.setText(viewModel.initialContent)
     }
 
     private fun EditNoteViewModel.bind() {
