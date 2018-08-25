@@ -90,7 +90,7 @@ fun buildStore(dao: NoteDao): NoteStore = buildStore {
                 .flatMap<Result> { Flowable.empty() }
         }
 
-        watchAll { Log.v("NoteStore", it.toString()) }
+        watchAll { Log.v("NoteStore", "Command: $it") }
     }
 
     results {
@@ -102,13 +102,13 @@ fun buildStore(dao: NoteDao): NoteStore = buildStore {
             state.copy(editingNote = note)
         }
 
-        watchAll { Log.v("NoteStore", it.toString()) }
+        watchAll { Log.v("NoteStore", "Result:  $it") }
     }
 
     states {
         initial = State()
         observeScheduler = AndroidSchedulers.mainThread()
 
-        watchAll { Log.v("NoteStore", it.toString()) }
+        watchAll { Log.v("NoteStore", "State:   $it") }
     }
 }

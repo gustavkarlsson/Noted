@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.OrientationHelper.VERTICAL
-import android.support.v7.widget.RecyclerView
 import com.jakewharton.rxbinding2.view.clicks
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_notes.*
@@ -31,7 +30,7 @@ class NotesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notes)
-        notesRecyclerView.init()
+        init()
         viewModel.bind()
         bind()
     }
@@ -46,10 +45,12 @@ class NotesActivity : AppCompatActivity() {
         isStarted = false
     }
 
-    private fun RecyclerView.init() {
-        adapter = noteListAdapter
-        layoutManager = LinearLayoutManager(context)
-        addItemDecoration(DividerItemDecoration(context, VERTICAL))
+    private fun init() {
+        notesRecyclerView.run {
+            adapter = noteListAdapter
+            layoutManager = LinearLayoutManager(context)
+            addItemDecoration(DividerItemDecoration(context, VERTICAL))
+        }
     }
 
     private fun NotesViewModel.bind() {
