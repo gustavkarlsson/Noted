@@ -1,4 +1,4 @@
-package se.gustavkarlsson.noted.gui.activities.notes
+package se.gustavkarlsson.noted.gui.fragments.notes
 
 import android.text.TextUtils
 import android.view.LayoutInflater

@@ -2,8 +2,9 @@ package se.gustavkarlsson.noted
 
 import androidx.room.Room
 import org.koin.dsl.module.module
-import se.gustavkarlsson.noted.gui.activities.editnote.EditNoteViewModel
-import se.gustavkarlsson.noted.gui.activities.notes.NotesViewModel
+import se.gustavkarlsson.noted.gui.MainViewModel
+import se.gustavkarlsson.noted.gui.fragments.editnote.EditNoteViewModel
+import se.gustavkarlsson.noted.gui.fragments.notes.NotesViewModel
 import se.gustavkarlsson.noted.krate.buildStore
 import se.gustavkarlsson.noted.services.database.NotedDatabase
 
@@ -20,4 +21,6 @@ val appModule = module {
     factory { EditNoteViewModel(get()) }
 
     factory { NotesViewModel(get()) }
+
+    factory { MainViewModel(get()) }
 }
