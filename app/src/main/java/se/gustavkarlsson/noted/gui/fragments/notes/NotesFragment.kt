@@ -13,7 +13,6 @@ import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_notes.*
 import org.koin.android.ext.android.inject
 import se.gustavkarlsson.noted.R
-import se.gustavkarlsson.noted.extensions.addTo
 
 class NotesFragment : Fragment() {
 
@@ -45,18 +44,17 @@ class NotesFragment : Fragment() {
     }
 
     private fun NotesViewModel.bind() {
-        notes.subscribe {
+        disposables.add(notes.subscribe {
             noteListAdapter.notes = it
-        }.addTo(disposables)
+        })
     }
 
     private fun bind() {
-        addFab.clicks()
-            .subscribe { viewModel.createNewNote() }
-            .addTo(disposables)
+        disposables.add(addFab.clicks()
+            .subscribe { viewModel.onAddNoteClicked() })
 
-        noteListAdapter.onClick = viewModel::editNote
-        noteListAdapter.onSwipe = viewModel::deleteNote
+        noteListAdapter.onClick = viewModel::onNoteClicked
+        noteListAdapter.onSwipe = viewModel::onNoteSwiped
     }
 
     override fun onStop() {

@@ -7,7 +7,7 @@ import se.gustavkarlsson.noted.krate.StopEditingNote
 
 class MainViewModel(private val store: NoteStore) {
 
-    val goToEditNote: Flowable<Unit> = store.states
+    val navigateToEditNote: Flowable<Unit> = store.states
         .distinctUntilChanged { a, b ->
             (a.editingNote != null) == (b.editingNote != null)
         }
@@ -19,7 +19,7 @@ class MainViewModel(private val store: NoteStore) {
             }
         }
 
-    fun stopEditingNote() {
+    fun onNotNavigatingToEditNote() {
         store.issue(StopEditingNote)
     }
 }

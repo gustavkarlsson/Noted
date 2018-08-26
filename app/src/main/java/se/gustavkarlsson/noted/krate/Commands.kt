@@ -1,6 +1,6 @@
 package se.gustavkarlsson.noted.krate
 
-import se.gustavkarlsson.noted.entities.Note
+import se.gustavkarlsson.noted.domain.Note
 
 sealed class Command
 

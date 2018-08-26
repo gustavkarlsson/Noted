@@ -2,14 +2,11 @@ package se.gustavkarlsson.noted.gui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavController
-import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import io.reactivex.disposables.CompositeDisposable
 import org.koin.android.ext.android.inject
 import se.gustavkarlsson.noted.R
-import se.gustavkarlsson.noted.extensions.addTo
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,29 +14,33 @@ class MainActivity : AppCompatActivity() {
 
     private val viewModel: MainViewModel by inject()
 
+    private val navController by lazy {
+        findNavController(R.id.mainNavHost)
+    }
+
+    override fun onSupportNavigateUp(): Boolean = navController.navigateUp()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setupActionBarWithNavController(findNavController())
-        findNavController().addOnNavigatedListener(::handleStopEditingNote)
+        setupActionBarWithNavController(navController)
         viewModel.bind()
-    }
-
-    private fun handleStopEditingNote(navController: NavController, destination: NavDestination) {
-        if (destination.id != R.id.editNoteFragment) {
-            viewModel.stopEditingNote()
-        }
+        bind()
     }
 
     private fun MainViewModel.bind() {
-        goToEditNote.subscribe {
-            findNavController().navigate(R.id.action_notesFragment_to_editNoteFragment)
-        }.addTo(disposables)
+        disposables.add(navigateToEditNote.subscribe {
+            navController.navigate(R.id.action_notesFragment_to_editNoteFragment)
+        })
     }
 
-    override fun onSupportNavigateUp(): Boolean = findNavController().navigateUp()
-
-    private fun findNavController() = findNavController(R.id.mainNavHost)
+    private fun bind() {
+        navController.addOnNavigatedListener { _, destination ->
+            if (destination.id != R.id.editNoteFragment) {
+                viewModel.onNotNavigatingToEditNote()
+            }
+        }
+    }
 
     override fun onDestroy() {
         disposables.clear()

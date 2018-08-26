@@ -6,11 +6,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import se.gustavkarlsson.krate.core.Store
 import se.gustavkarlsson.krate.core.dsl.buildStore
-import se.gustavkarlsson.noted.converters.toDb
-import se.gustavkarlsson.noted.converters.toEntity
-import se.gustavkarlsson.noted.entities.Note
-import se.gustavkarlsson.noted.services.database.DbNote
-import se.gustavkarlsson.noted.services.database.NoteDao
+import se.gustavkarlsson.noted.database.toDb
+import se.gustavkarlsson.noted.database.toEntity
+import se.gustavkarlsson.noted.database.DbNote
+import se.gustavkarlsson.noted.database.NoteDao
+import se.gustavkarlsson.noted.domain.Note
 
 typealias NoteStore = Store<State, Command, Result>
 

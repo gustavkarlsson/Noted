@@ -10,7 +10,6 @@ import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_editnote.*
 import org.koin.android.ext.android.inject
 import se.gustavkarlsson.noted.R
-import se.gustavkarlsson.noted.extensions.addTo
 
 class EditNoteFragment : Fragment() {
 
@@ -37,13 +36,11 @@ class EditNoteFragment : Fragment() {
     }
 
     private fun bind() {
-        titleEditText.textChanges()
-            .subscribe(viewModel::setTitle)
-            .addTo(disposables)
+        disposables.add(titleEditText.textChanges()
+            .subscribe(viewModel::onTitleChanged))
 
-        contentEditText.textChanges()
-            .subscribe(viewModel::setContent)
-            .addTo(disposables)
+        disposables.add(contentEditText.textChanges()
+            .subscribe(viewModel::onContentChanged))
     }
 
     override fun onStop() {

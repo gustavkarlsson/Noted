@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import se.gustavkarlsson.noted.entities.Note
+import se.gustavkarlsson.noted.domain.Note
 
 class NoteListAdapter : RecyclerView.Adapter<NoteListAdapter.ViewHolder>() {
     var notes: List<Note> = emptyList()

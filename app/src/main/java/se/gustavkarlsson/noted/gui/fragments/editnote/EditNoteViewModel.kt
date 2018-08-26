@@ -10,11 +10,11 @@ class EditNoteViewModel(private val store: NoteStore) {
 
     val initialContent: String = store.currentState.editingNote!!.content
 
-    fun setTitle(text: CharSequence) {
+    fun onTitleChanged(text: CharSequence) {
         store.issue(SetEditingNoteTitle(text.toString()))
     }
 
-    fun setContent(text: CharSequence) {
+    fun onContentChanged(text: CharSequence) {
         store.issue(SetEditingNoteContent(text.toString()))
     }
 

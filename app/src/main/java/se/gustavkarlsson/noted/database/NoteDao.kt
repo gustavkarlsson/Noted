@@ -1,4 +1,4 @@
-package se.gustavkarlsson.noted.services.database
+package se.gustavkarlsson.noted.database
 
 import androidx.room.*
 import io.reactivex.Flowable
